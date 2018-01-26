@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { generateBoard } from "./functions/board";
+
 class App extends Component {
   render() {
+    console.log(generateBoard());
+
     return (
       <div className="App">
         <header className="App-header">
