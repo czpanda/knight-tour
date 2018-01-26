@@ -5,6 +5,9 @@ const defaultField = {
   visited: false,
 };
 
+/**
+ * Visited field value
+ */
 const visitedField = {
   visited: true,
 };
