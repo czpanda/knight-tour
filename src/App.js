@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { generateBoard } from "./functions/board";
+import { generateBoard, updateBoard } from "./functions/board";
 
 class App extends Component {
   render() {
-    console.log(generateBoard());
+    let board = generateBoard();
+
+    console.log(updateBoard(board, 7, 7))
 
     return (
       <div className="App">
