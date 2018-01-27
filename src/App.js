@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { generateBoard, updateBoard } from "./functions/board";
+import { generateBoard, updateBoard, generateRandomCoordinates } from "./functions/board";
 
 class App extends Component {
   render() {
-    let board = generateBoard();
+    const height = 10;
+    const width = 10;
 
-    console.log(updateBoard(board, 7, 7))
+    let board = generateBoard(width, height);
+
+    const c = generateRandomCoordinates(10, 10);
+    console.log(updateBoard(board, c.x, c.y));
 
     return (
       <div className="App">

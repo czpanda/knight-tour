@@ -14,12 +14,12 @@ const visitedField = {
 
 /**
  * Generates 2D array with a given field
- * @param { Number } height - Number of board rows
  * @param { Number } width - Number of board columns
+ *  * @param { Number } height - Number of board rows
  * @param { Object } field - Value of every generated field
  * @return { Array<Object> } board - Generated board
  */
-export function generateBoard( height = 8, width = 8, field = defaultField ) {
+export function generateBoard( width = 10, height = 8, field = defaultField ) {
   return new Array(width).fill(
     new Array(height).fill(field)
   )
@@ -47,4 +47,21 @@ export function updateBoard( board, xPosition, yPosition, value = visitedField )
       return yIndex !== yPosition ? field : value;
     });
   })
+}
+
+/**
+ * Generates random coordinates
+ * @param { Number } width
+ * @param { Number } height
+ * @return { Object } generatedCoordinates
+ */
+export function generateRandomCoordinates( width, height ) {
+
+  // Generates random number from 0 to x (including x)
+  const generate = x => Math.floor(Math.random() * x + 1);
+
+  return {
+    x: generate(width),
+    y: generate(height),
+  };
 }
