@@ -15,7 +15,7 @@ export function getPossibleMoves( board ) {
   ];
 
   return possibleMoves
-    .filter(move => move.x > 0 && move.y > 0)
+    .filter(move => move.x >= 0 && move.y >= 0)
     .filter(move => move.x < board.length && move.y < board[0].length)
     .filter(move => !board[move.x][move.y].visited);
 }
