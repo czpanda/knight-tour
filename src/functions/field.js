@@ -1,13 +1,5 @@
 /**
- * Starting field value
- */
-export const startingField = {
-  visited: true,
-  current: true,
-};
-
-/**
- * Field default value
+ * Default field value
  */
 export const defaultField = {
   visited: false,
@@ -15,8 +7,23 @@ export const defaultField = {
 };
 
 /**
+ * Current field value
+ */
+export const currentField = {
+  current: true,
+  visited: true,
+};
+
+/**
  * Visited field value
  */
 export const visitedField = {
   visited: true,
+};
+
+/**
+ * Inactive field value
+ */
+export const inactiveField = {
+  current: false,
 };
