@@ -6,8 +6,9 @@ import {
 
 /**
  * Generates 2D array with a given field
+ *
  * @param { Number } width - Number of board columns
- *  * @param { Number } height - Number of board rows
+ * @param { Number } height - Number of board rows
  * @param { Object } field - Value of every generated field
  * @return { Array<Object> } board - Generated board
  */
@@ -19,6 +20,7 @@ export function generateBoard( width = 8, height = 8, field = defaultField ) {
 
 /**
  * Updates board at given coordinates with a given value
+ *
  * @param { Array<Array<Object>> } board - 2D array
  * @param { Number } xPosition
  * @param { Number } yPosition
@@ -53,6 +55,7 @@ export function updateBoard( board, xPosition, yPosition, value = visitedField )
 
 /**
  * Generates random coordinates
+ *
  * @param { Number } width
  * @param { Number } height
  * @return { Object } generatedCoordinates
@@ -70,6 +73,7 @@ export function generateRandomCoordinates( width, height ) {
 
 /**
  * Prints passed board into a console
+ *
  * @param board
  */
 export function printBoard( board ) {
