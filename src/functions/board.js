@@ -1,16 +1,4 @@
-/**
- * Field default value
- */
-const defaultField = {
-  visited: false,
-};
-
-/**
- * Visited field value
- */
-const visitedField = {
-  visited: true,
-};
+import { defaultField, visitedField } from './field';
 
 /**
  * Generates 2D array with a given field
@@ -44,7 +32,7 @@ export function updateBoard( board, xPosition, yPosition, value = visitedField )
 
   return board.map((column, xIndex) => {
     return xIndex !== xPosition ? column : column.map((field, yIndex) => {
-      return yIndex !== yPosition ? field : value;
+      return yIndex !== yPosition ? field : { ...field, ...value };
     });
   })
 }
@@ -61,7 +49,7 @@ export function generateRandomCoordinates( width, height ) {
   const generate = x => Math.floor(Math.random() * x + 1);
 
   return {
-    x: generate(width),
-    y: generate(height),
+    x: generate(width - 1),
+    y: generate(height - 1),
   };
 }
