@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 
 import { generateBoard, updateBoard, generateRandomCoordinates } from "./functions/board";
+import { getPossibleMoves } from "./functions/knight";
+import { startingField } from "./functions/field";
 
 class App extends Component {
   render() {
@@ -11,8 +13,10 @@ class App extends Component {
 
     let board = generateBoard(width, height);
 
-    const c = generateRandomCoordinates(10, 10);
-    console.log(updateBoard(board, c.x, c.y));
+    const c = generateRandomCoordinates(width, height);
+    board = updateBoard(board, c.x, c.y, startingField);
+
+    console.log(getPossibleMoves(board));
 
     return (
       <div className="App">
