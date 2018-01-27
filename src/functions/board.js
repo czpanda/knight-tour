@@ -1,4 +1,8 @@
-import { defaultField, visitedField } from './field';
+import {
+  visitedField,
+  defaultField,
+  inactiveField
+} from './field';
 
 /**
  * Generates 2D array with a given field
@@ -7,7 +11,7 @@ import { defaultField, visitedField } from './field';
  * @param { Object } field - Value of every generated field
  * @return { Array<Object> } board - Generated board
  */
-export function generateBoard( width = 10, height = 8, field = defaultField ) {
+export function generateBoard( width = 8, height = 8, field = defaultField ) {
   return new Array(width).fill(
     new Array(height).fill(field)
   )
@@ -30,9 +34,19 @@ export function updateBoard( board, xPosition, yPosition, value = visitedField )
     throw new Error('yPosition has to be within board');
   }
 
+  /**
+   * Returns given field extended with inactiveField property
+   * @param { Object } field
+   */
+  const createInactiveField = field => ({ ...field, ...inactiveField });
+
   return board.map((column, xIndex) => {
-    return xIndex !== xPosition ? column : column.map((field, yIndex) => {
-      return yIndex !== yPosition ? field : { ...field, ...value };
+    if (xIndex !== xPosition) return column.map(createInactiveField);
+
+    return column.map((field, yIndex) => {
+      if (yIndex !== yPosition) return createInactiveField(field);
+
+      return { ...field, ...value };
     });
   })
 }
@@ -45,11 +59,30 @@ export function updateBoard( board, xPosition, yPosition, value = visitedField )
  */
 export function generateRandomCoordinates( width, height ) {
 
-  // Generates random number from 0 to x (including x)
-  const generate = x => Math.floor(Math.random() * x + 1);
+  // Generates random number from 0 to x (excluding x)
+  const generate = x => Math.floor(Math.random() * x);
 
   return {
-    x: generate(width - 1),
-    y: generate(height - 1),
+    x: generate(width),
+    y: generate(height),
   };
+}
+
+/**
+ * Prints passed board into a console
+ * @param board
+ */
+export function printBoard( board ) {
+
+  const b = board.map(columns => {
+    return columns.map(field => {
+      if (field.visited && field.current) return 'X';
+      else if (field.visited) return 'V';
+      else if (field.current) return 'C';
+      else return 'O';
+    }).join('');
+  }).join('\n');
+
+  console.log(b);
+
 }
