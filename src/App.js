@@ -9,6 +9,9 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    /**
+     * Components initial state
+     */
     this.state = {
       paths: [],
       loaded: false,
@@ -19,6 +22,8 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // Move complicated operations to the end of event loop
+    // so page loader can be loaded
     setTimeout(() => {
       // Create and empty 5x5 board
       const initialBoard = generateBoard(5, 5);
@@ -26,6 +31,7 @@ class App extends Component {
       // Place knight to the middle of the board
       const startingBoard = updateBoard(initialBoard, 0, 0, currentField);
 
+      // All possible paths
       const possiblePaths = findPath(startingBoard);
 
       this.setState({
@@ -43,7 +49,14 @@ class App extends Component {
     clearTimeout(timeout);
   }
 
-  startAnimation(pathIndex) {
+  /**
+   * Restarts current animation and updates board
+   * with a next possible move every 1 second
+   *
+   * @param { number } pathIndex
+   * @param { number } animationTime - time of animation progress in ms
+   */
+  startAnimation(pathIndex, animationTime = 1000) {
     const {
       paths,
     } = this.state;
@@ -56,7 +69,7 @@ class App extends Component {
       const timeout = setTimeout(() => {
         this.updateBoard(coordinates);
         if (paths[pathIndex].length -1 !== index) recursion(index + 1);
-      }, 1000);
+      }, animationTime);
 
       this.setState({
         timeout,
@@ -66,6 +79,10 @@ class App extends Component {
     recursion();
   }
 
+  /**
+   * Stops current animation and sets board to its
+   * initial value
+   */
   restartAnimation() {
     this.stopAnimation();
 
@@ -76,6 +93,9 @@ class App extends Component {
     });
   }
 
+  /**
+   * Clears current animation timeout
+   */
   stopAnimation() {
     const { timeout } = this.state;
 
@@ -88,6 +108,11 @@ class App extends Component {
     });
   }
 
+  /**
+   * Updates board at given coordinates
+   *
+   * @param { Object } coordinates
+   */
   updateBoard(coordinates) {
     this.setState(state => {
       return {
@@ -96,6 +121,11 @@ class App extends Component {
     })
   }
 
+  /**
+   * Changes active path solution
+   *
+   * @param { Number } amount
+   */
   changeSolution(amount) {
     this.restartAnimation();
 
